@@ -11,6 +11,8 @@ class LanguageManager {
                 resetViewBtn: 'Reset View',
                 speedLabel: 'x',
                 loadingText: 'Loading Solar System...',
+                createdBy: 'Created by',
+                authorName: 'Wahid Slimani',
                 planetDetails: {
                     description: 'Description',
                     diameter: 'Diameter',
@@ -30,6 +32,8 @@ class LanguageManager {
                 resetViewBtn: 'Vue par Défaut',
                 speedLabel: 'x',
                 loadingText: 'Chargement du Système Solaire...',
+                createdBy: 'Créé par',
+                authorName: 'Wahid Slimani',
                 planetDetails: {
                     description: 'Description',
                     diameter: 'Diamètre',
@@ -49,6 +53,8 @@ class LanguageManager {
                 resetViewBtn: 'إعادة ضبط',
                 speedLabel: 'x',
                 loadingText: 'جاري تحميل النظام الشمسي...',
+                createdBy: 'تم إنشاؤه بواسطة',
+                authorName: 'وحيد سليماني',
                 planetDetails: {
                     description: 'وصف',
                     diameter: 'القطر',
@@ -68,6 +74,8 @@ class LanguageManager {
                 resetViewBtn: 'ⴰⵔⵔⴰⵔⴰⵢ',
                 speedLabel: 'x',
                 loadingText: 'ⴰⵣⴷⴰⵎ ⵏ ⵓⵙⵏⴳⵍⴰⵍ ⴰⵜⴰⴼⵓⴽⵜ...',
+                createdBy: 'ⵉⵙⴽⵔ ⵜ',
+                authorName: 'ⵡⴰⵃⵉⴷ ⵙⵍⵉⵎⴰⵏⵉ',
                 planetDetails: {
                     description: 'ⴰⴳⵍⴰⵎ',
                     diameter: 'ⵜⴰⵣⵍⴰⵢⵜ',
@@ -87,6 +95,8 @@ class LanguageManager {
                 resetViewBtn: 'Arraray',
                 speedLabel: 'x',
                 loadingText: 'Azdam n usnglal atafukt...',
+                createdBy: 'Iskr t',
+                authorName: 'Wahid Slimani',
                 planetDetails: {
                     description: 'Aglam',
                     diameter: 'Tazlayt',
@@ -279,6 +289,17 @@ class LanguageManager {
         
         // Update all planet labels in the scene
         this.updatePlanetLabels();
+
+        // Update credits text
+        const creditsLabel = document.getElementById('credits-label');
+        if (creditsLabel) {
+            creditsLabel.textContent = this.translate('createdBy');
+        }
+        
+        const authorName = document.getElementById('author-name');
+        if (authorName) {
+            authorName.textContent = this.translate('authorName');
+        }
     }
 
     setCurrentOpenPlanet(planetName) {

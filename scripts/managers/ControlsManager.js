@@ -244,7 +244,7 @@ class ControlsManager {
         
         if (intersects.length > 0) {
             // Debug info
-            console.log("Clicked on something:", intersects[0].object);
+            // console.log("Clicked on something:", intersects[0].object);
             
             let intersectedObj = intersects[0].object;
             let foundCelestialBody = null;
@@ -254,7 +254,7 @@ class ControlsManager {
                 // Check if this object has celestialBody data
                 if (intersectedObj.userData && intersectedObj.userData.celestialBody) {
                     foundCelestialBody = intersectedObj.userData.celestialBody;
-                    console.log("Found celestial body:", foundCelestialBody.originalName);
+                    // console.log("Found celestial body:", foundCelestialBody.originalName);
                     break;
                 }
                 

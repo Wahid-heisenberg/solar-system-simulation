@@ -329,18 +329,32 @@ html[dir="rtl"] #credits {
 /* Mobile responsiveness for credits */
 @media (max-width: 768px) {
     #credits {
+        /* Position to top left on mobile */
+        bottom: auto;
+        top: 10px;
+        left: 10px;
+        transform: none; /* Remove the centering transform */
         padding: 6px 12px;
         font-size: 12px;
-        max-width: 90%;
+        max-width: 160px; /* Limit width on small screens */
+        text-align: left;
     }
     
     .credit-content {
         flex-direction: column;
         gap: 5px;
+        align-items: flex-start;
     }
     
     .credit-icons a {
         font-size: 18px; /* Larger tap targets on mobile */
         padding: 5px;
     }
+}
+
+/* Add proper font support for Tamazight language */
+html[lang="ber"] #author-name,
+html[lang="ar"] #author-name {
+    font-family: 'Arial Unicode MS', sans-serif;
+    font-weight: bold;
 }
