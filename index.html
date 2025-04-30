@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags - Default (English) -->
+    <title>Solar System Simulation</title>
+    <meta name="description" content="Interactive 3D simulation of our Solar System with planets, moons, and orbital mechanics. Explore space in your browser.">
+    <meta name="keywords" content="solar system, planets, space, astronomy, 3D simulation, interactive, Earth, Mars, Jupiter, Saturn">
+    
+    <!-- Alternate Language Links -->
+    <link rel="alternate" hreflang="en" href="index.html?lang=en">
+    <link rel="alternate" hreflang="fr" href="index.html?lang=fr">
+    <link rel="alternate" hreflang="ar" href="index.html?lang=ar">
+    <link rel="alternate" hreflang="tzm" href="index.html?lang=tzm">
+    <link rel="alternate" hreflang="tzm-Latn" href="index.html?lang=tzm_lat">
+    
+    <!-- French (fr) Meta Tags -->
+    <meta name="description" lang="fr" content="Simulation 3D interactive du système solaire avec planètes, lunes et mécanique orbitale. Explorez l'espace dans votre navigateur.">
+    <meta name="keywords" lang="fr" content="système solaire, planètes, espace, astronomie, simulation 3D, interactif, Terre, Mars, Jupiter, Saturne">
+    
+    <!-- Arabic (ar) Meta Tags -->
+    <meta name="description" lang="ar" content="محاكاة ثلاثية الأبعاد تفاعلية للنظام الشمسي مع الكواكب والأقمار وميكانيكا المدار. استكشف الفضاء في متصفحك.">
+    <meta name="keywords" lang="ar" content="النظام الشمسي، الكواكب، الفضاء، علم الفلك، محاكاة ثلاثية الأبعاد، تفاعلي، الأرض، المريخ، المشتري، زحل">
+    
+    <!-- Tamazight (tzm) Meta Tags -->
+    <meta name="description" lang="tzm" content="ⴰⵙⵏⵖⵎⴰⵙ 3D ⵉⵜⵜⵡⴰⵙⵏⴰⵍⵏ ⵏ ⵓⵙⵏⴳⵍⴰⵍ ⴰⵜⴰⴼⵓⴽⵜ ⴰⴽⴷ ⵉⵜⵔⴰⵏ, ⵜⵉⵣⵉⵔⵉⵏ ⴷ ⵓⵏⵏⵓⵕⵥⵎ. ⵙⵙⵓⴼⵖ ⴰⵏⴰⴳⵔⴰⵡ ⴷⴳ ⵓⵎⵙⵙⴰⵔⴰ ⵏⵏⴽ.">
+    <meta name="keywords" lang="tzm" content="ⴰⵙⵏⴳⵍⴰⵍ ⴰⵜⴰⴼⵓⴽⵜ, ⵉⵜⵔⴰⵏ, ⴰⵏⴰⴳⵔⴰⵡ, ⵜⵓⵙⵏⴰⴽⵜ ⵏ ⵉⵜⵔⴰⵏ, ⴰⵙⵏⵖⵎⴰⵙ 3D, ⴰⵎⵙⵏⴰⵍ, ⴰⵎⴰⴹⴰⵍ, ⵎⴰⵔⵙ, ⵊⵓⵒⵉⵜⵉⵔ, ⵙⴰⵜⵓⵔⵏ">
+    
+    <!-- Tamazight Latin Script (tzm-Latn) Meta Tags -->
+    <meta name="description" lang="tzm-Latn" content="Asnɣmas 3D ittwasnaln n usnglal atafukt akd itran, tizirin d unnuṛẓm. Ssufɣ anagraw deg umssara nnk.">
+    <meta name="keywords" lang="tzm-Latn" content="asnglal atafukt, itran, anagraw, tusnakt n itran, asnɣmas 3D, amsnal, amaḍal, mars, jupiter, saturn">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Solar System Simulation">
+    <meta property="og:description" content="Interactive 3D simulation of our Solar System with planets, moons, and orbital mechanics.">
+    <!-- <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourdomain.com/solar-system/">
+    <meta property="og:image" content="https://yourdomain.com/solar-system/images/preview.jpg"> -->
+    
+    <!-- Twitter Card Tags -->
+    <!-- <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Solar System Simulation">
+    <meta name="twitter:description" content="Interactive 3D simulation of our Solar System with planets, moons, and orbital mechanics.">
+    <meta name="twitter:image" content="https://yourdomain.com/solar-system/images/preview.jpg"> -->
+    
+    <!-- Additional Meta -->
+    <meta name="author" content="Your Name">
+    <meta name="theme-color" content="#000000">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/main.css">
+    
+    <!-- Preload crucial resources -->
+    <link rel="preload" href="scripts/SolarSystem.js" as="script">
+    
+    <!-- Script to update meta tags based on selected language -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function updateMetaTags() {
+                const lang = new URLSearchParams(window.location.search).get('lang') || 
+                             localStorage.getItem('solarSystemLanguage') || 'en';
+                
+                // Set document language
+                document.documentElement.lang = lang.startsWith('tzm') ? 'ber' : lang;
+                
+                // Update meta tags based on language
+                if (lang === 'fr') {
+                    document.title = 'Simulation du Système Solaire';
+                } else if (lang === 'ar') {
+                    document.title = 'محاكاة النظام الشمسي';
+                    document.documentElement.dir = 'rtl';
+                } else if (lang === 'tzm') {
+                    document.title = 'ⴰⵙⵏⵖⵎⴰⵙ ⵏ ⵓⵙⵏⴳⵍⴰⵍ ⴰⵜⴰⴼⵓⴽⵜ';
+                } else if (lang === 'tzm_lat') {
+                    document.title = 'Asnɣmas n usnglal atafukt';
+                } else {
+                    document.title = 'Solar System Simulation';
+                    document.documentElement.dir = 'ltr';
+                }
+            }
+            
+            updateMetaTags();
+            
+            // Update meta tags when language is changed
+            window.addEventListener('languageChange', updateMetaTags);
+        });
+    </script>
+</head>
+<body>
+    <div id="loading-screen">
+        <div class="spinner"></div>
+        <div class="loading-text">Loading Solar System...</div>
+    </div>
+    
+    <div id="container"></div>
+    
+    <div id="info-panel" class="hidden">
+        <div class="close-btn">&times;</div>
+        <h2 id="planet-name"></h2>
+        <div id="planet-details"></div>
+    </div>
+    
+    <div id="tooltip" class="hidden"></div>
+    
+    <div id="controls">
+        <div id="time-controls">
+            <button id="pause-btn">Pause</button>
+            <input type="range" id="time-speed" min="0" max="10" value="1" step="0.1">
+            <span id="speed-value">1x</span>
+        </div>
+        <div id="view-controls">
+            <button id="top-view-btn">Top View</button>
+            <button id="reset-view-btn">Reset View</button>
+        </div>
+        <div id="language-controls">
+            <button class="lang-btn" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="fr">FR</button>
+            <button class="lang-btn" data-lang="ar">عربية</button>
+            <button class="lang-btn" data-lang="tzm">ⵜⴰⵎⴰⵣⵉⵖⵜ</button>
+            <button class="lang-btn" data-lang="tzm_lat">Tamaziɣt</button>
+        </div>
+    </div>
+    
+    <div id="mini-map"></div>
+    
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/FlyControls.js"></script>
+    
+    <!-- ShaderLib dependencies (add these before EffectComposer) -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/FXAAShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/ConvolutionShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+    
+    <!-- Post-processing passes -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/FXAAPass.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/TextureLoader.js"></script>
+    
+    <!-- Asset Manager -->
+    <script src="scripts/AssetManager.js"></script>
+    
+    <!-- Core Classes -->
+    <script src="scripts/components/CelestialBody.js"></script>
+    <script src="scripts/components/Planet.js"></script>
+    <script src="scripts/components/Star.js"></script>
+    <script src="scripts/components/Moon.js"></script>
+    <script src="scripts/components/AsteroidBelt.js"></script>
+    <script src="scripts/components/Comet.js"></script>
+    
+    <!-- Managers -->
+    <script src="scripts/managers/LanguageManager.js"></script>
+    <script src="scripts/managers/OrbitManager.js"></script>
+    <script src="scripts/managers/CometManager.js"></script>
+    <script src="scripts/managers/ControlsManager.js"></script>
+    <script src="scripts/managers/UIManager.js"></script>
+    
+    <!-- Main App -->
+    <script src="scripts/SolarSystem.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+</html>

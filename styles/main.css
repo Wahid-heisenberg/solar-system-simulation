@@ -1,0 +1,239 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #000000; /* Ensure the body background is black */
+    color: #ffffff;
+}
+
+#container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 0.5s ease;
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-text {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+#info-panel {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 300px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 15px;
+    z-index: 10;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.close-btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+#tooltip {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 14px;
+    pointer-events: none;
+    z-index: 100;
+}
+
+#controls {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 8px;
+    padding: 10px;
+}
+
+#time-controls, #view-controls {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    margin-right: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+input[type="range"] {
+    width: 100px;
+    margin: 0 10px;
+}
+
+#mini-map {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 200px;
+    height: 200px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 1px solid #444;
+    border-radius: 50%;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.hidden {
+    display: none;
+}
+
+#planet-name {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #444;
+}
+
+#planet-details p {
+    margin-bottom: 8px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+#planet-details p:first-child {
+    margin-bottom: 15px;
+}
+
+/* Make UI elements more visible on smaller screens */
+@media (max-width: 768px) {
+    #controls {
+        bottom: 10px;
+        left: 10px;
+        padding: 8px;
+    }
+    
+    #mini-map {
+        width: 150px;
+        height: 150px;
+        bottom: 10px;
+        right: 10px;
+    }
+    
+    #info-panel {
+        width: 250px;
+        top: 10px;
+        right: 10px;
+    }
+    
+    button {
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+}
+
+/* Language controls */
+#language-controls {
+    position: absolute;
+    top: -100px;
+    left: 20px;
+    display: flex;
+    gap: 8px;
+    z-index: 1000;
+    flex-wrap: wrap;
+}
+
+/* Make language buttons responsive */
+.lang-btn {
+    padding: 5px 10px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    min-width: 40px;
+    white-space: nowrap;
+}
+
+.lang-btn:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.lang-btn.active {
+    background-color: rgba(0, 60, 120, 0.7);
+    border-color: rgba(100, 200, 255, 0.8);
+}
+
+/* Add special styling for Tamazight Latin */
+.lang-btn[data-lang="tzm_lat"] {
+    font-style: italic;
+}
+
+/* For RTL languages */
+html[dir="rtl"] #controls {
+    direction: rtl;
+}
+
+html[dir="rtl"] #info-panel {
+    text-align: right;
+}
+
+html[dir="rtl"] .close-btn {
+    right: auto;
+    left: 10px;
+}
