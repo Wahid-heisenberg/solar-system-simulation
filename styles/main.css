@@ -56,17 +56,18 @@ body {
 }
 
 #info-panel {
-    position: fixed;
+    position: absolute;
     top: 20px;
     right: 20px;
-    width: 300px;
-    background-color: rgba(0, 0, 0, 0.7);
-    border: 1px solid #444;
-    border-radius: 8px;
-    padding: 15px;
-    z-index: 10;
+    width: 350px;
     max-height: 80vh;
+    background-color: rgba(0, 10, 30, 0.85);
+    border-radius: 8px;
+    color: white;
+    padding: 15px;
     overflow-y: auto;
+    z-index: 900;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .close-btn {
@@ -77,15 +78,23 @@ body {
     cursor: pointer;
 }
 
+/* Add or update these tooltip styles */
+
 #tooltip {
     position: absolute;
     background-color: rgba(0, 0, 0, 0.8);
-    border: 1px solid #444;
+    color: white;
+    padding: 10px 15px;
     border-radius: 4px;
-    padding: 8px 12px;
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: bold;
     pointer-events: none;
-    z-index: 100;
+    z-index: 1000;
+    max-width: 200px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    transition: opacity 0.2s ease;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 #controls {
@@ -137,8 +146,9 @@ input[type="range"] {
     z-index: 10;
 }
 
+/* Ensure hidden items stay hidden */
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 #planet-name {
@@ -181,6 +191,31 @@ input[type="range"] {
     button {
         padding: 4px 8px;
         font-size: 12px;
+    }
+    
+    #tooltip {
+        padding: 12px 16px;
+        font-size: 16px;
+        background-color: rgba(0, 0, 0, 0.9);
+    }
+    
+    /* Make controls more touch-friendly */
+    #controls button {
+        min-height: 44px; /* Minimum touch target size */
+        min-width: 44px;
+        margin: 4px;
+        padding: 8px 12px;
+    }
+    
+    /* Better spacing for control sections */
+    #time-controls, #view-controls, #language-controls {
+        margin-bottom: 10px;
+    }
+    
+    /* Make info panel more suitable for mobile */
+    #info-panel {
+        max-width: 90%;
+        max-height: 80vh;
     }
 }
 
@@ -236,4 +271,76 @@ html[dir="rtl"] #info-panel {
 html[dir="rtl"] .close-btn {
     right: auto;
     left: 10px;
+}
+
+html[dir="rtl"] #info-panel {
+    right: auto;
+    left: 20px;
+}
+
+/* Credits section */
+#credits {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 8px;
+    padding: 8px 15px;
+    z-index: 100;
+    text-align: center;
+    font-size: 14px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    transition: opacity 0.3s ease;
+}
+
+#credits:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.credit-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.credit-icons {
+    display: flex;
+    gap: 12px;
+}
+
+.credit-icons a {
+    color: #fff;
+    font-size: 16px;
+    transition: color 0.2s ease;
+}
+
+.credit-icons a:hover {
+    color: #64c8ff;
+}
+
+/* RTL handling for credits */
+html[dir="rtl"] #credits {
+    direction: ltr; /* Keep icons direction left-to-right even in RTL mode */
+}
+
+/* Mobile responsiveness for credits */
+@media (max-width: 768px) {
+    #credits {
+        padding: 6px 12px;
+        font-size: 12px;
+        max-width: 90%;
+    }
+    
+    .credit-content {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .credit-icons a {
+        font-size: 18px; /* Larger tap targets on mobile */
+        padding: 5px;
+    }
 }

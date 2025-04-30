@@ -22,7 +22,7 @@ class AssetManager {
                 },
                 undefined,
                 (err) => {
-                    console.error(`Error loading texture ${name} from ${url}:`, err);
+                    // console.error(`Error loading texture ${name} from ${url}:`, err);
                     // Try loading a backup texture
                     this.loadBackupTexture(name)
                         .then(resolve)
@@ -122,6 +122,7 @@ class AssetManager {
 
     loadSolarSystemAssets() {
         // Primary texture sources from Solar System Scope
+        this.loadTexture('stars', this.baseTextureUrl + '2k_stars_milky_way.jpg');
         this.loadTexture('sun', this.baseTextureUrl + '2k_sun.jpg');
         this.loadTexture('mercury', this.baseTextureUrl + '2k_mercury.jpg');
         this.loadTexture('venus', this.baseTextureUrl + '2k_venus_surface.jpg');
@@ -136,11 +137,10 @@ class AssetManager {
         this.loadTexture('saturnRings', this.baseTextureUrl + '2k_saturn_ring_alpha.png');
         this.loadTexture('uranus', this.baseTextureUrl + '2k_uranus.jpg');
         this.loadTexture('neptune', this.baseTextureUrl + '2k_neptune.jpg');
-        this.loadTexture('stars', this.baseTextureUrl + '2k_stars_milky_way.jpg');
         // Alternative stars texture as backup
-        if (!this.textures['stars']) {
-            this.loadTexture('stars', this.baseTextureUrl + '2k_stars_milky_way.jpg');
-        }
+        // if (!this.textures['stars']) {
+        //     this.loadTexture('stars', this.baseTextureUrl + '2k_stars_milky_way.jpg');
+        // }
         
         return this.waitForAllTextures();
     }

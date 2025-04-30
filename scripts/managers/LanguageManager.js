@@ -1,6 +1,7 @@
 class LanguageManager {
     constructor() {
-        this.currentLanguage = 'en';
+        // get the current language from localStorage or default to English
+        this.currentLanguage = localStorage.getItem('solarSystemLanguage') || 'en';
         this.currentOpenPlanet = null; // Track which planet info is currently shown
         this.translations = {
             en: {
@@ -183,8 +184,14 @@ class LanguageManager {
             document.documentElement.lang = this.currentLanguage;
         }
         
+        // console.log(`Initializing with language: ${this.currentLanguage}`);
+        
         // Update UI with current language
         this.updateUI();
+
+        // Trigger language update event so all components can respond
+        const event = new CustomEvent('languageInitialized', { detail: { language: this.currentLanguage } });
+        window.dispatchEvent(event);
     }
 
     setLanguage(lang) {
@@ -206,6 +213,9 @@ class LanguageManager {
             
             // Refresh planet info if open
             this.refreshOpenPlanetInfo();
+            
+            // Update celestial body names
+            this.updateCelestialBodyNames();
             
             return true;
         }
@@ -237,6 +247,8 @@ class LanguageManager {
     }
 
     translatePlanetName(name) {
+        if (!name) return '';
+        
         if (this.planetNames[this.currentLanguage] && 
             this.planetNames[this.currentLanguage][name]) {
             return this.planetNames[this.currentLanguage][name];
@@ -282,31 +294,38 @@ class LanguageManager {
 
     // Update all planet names in the scene according to the current language
     updatePlanetLabels() {
+        // This method is simplified since we no longer use labels
+        // Just update the celestial body names for tooltips
+        this.updateCelestialBodyNames();
+    }
+    
+    // Add method to update all celestial body names
+    updateCelestialBodyNames() {
         if (window.solarSystem) {
-            // Update names of all visible celestial bodies
-            const updateBodyName = (body) => {
-                if (body && body.labelMesh) {
-                    const translatedName = this.translatePlanetName(body.name);
-                    body.updateLabel(translatedName);
-                }
-            };
-            
             // Update Sun
-            if (window.solarSystem.sun) updateBodyName(window.solarSystem.sun);
+            if (window.solarSystem.sun) {
+                window.solarSystem.sun.updateLanguage();
+            }
             
             // Update planets
-            for (const planetKey in window.solarSystem.planets) {
-                if (window.solarSystem.planets[planetKey]) {
-                    updateBodyName(window.solarSystem.planets[planetKey]);
+            const planets = window.solarSystem.planets;
+            for (const key in planets) {
+                if (planets[key]) {
+                    planets[key].updateLanguage();
                 }
             }
             
             // Update moons
-            for (const moonKey in window.solarSystem.moons) {
-                if (window.solarSystem.moons[moonKey]) {
-                    updateBodyName(window.solarSystem.moons[moonKey]);
+            const moons = window.solarSystem.moons;
+            for (const key in moons) {
+                if (moons[key]) {
+                    moons[key].updateLanguage();
                 }
             }
+            
+            // Dispatch a custom event for controllers to detect
+            const event = new CustomEvent('languageChange');
+            window.dispatchEvent(event);
         }
     }
 }

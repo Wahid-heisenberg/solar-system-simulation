@@ -68,6 +68,14 @@ class SolarSystem {
         // Handle window resize
         window.addEventListener('resize', this.onWindowResize.bind(this));
         
+        // Add event listener for language initialization to update celestial bodies
+        window.addEventListener('languageInitialized', () => {
+            if (this.sun && window.languageManager) {
+                // Update all celestial body names when language is initialized
+                window.languageManager.updateCelestialBodyNames();
+            }
+        });
+        
         // Load assets and then create all celestial bodies
         this.assetManager.loadSolarSystemAssets().then(() => {
             this.createCelestialBodies();
@@ -146,10 +154,10 @@ class SolarSystem {
                 texture: this.assetManager.getTexture('sun')
             }
         });
-        this.sun.createMesh();
+        const sunMesh = this.sun.createMesh();
         this.orbitManager.addBody(this.sun);
-        this.controlsManager.addHoverObject(this.sun.mesh);
-        this.controlsManager.addClickObject(this.sun.mesh);
+        this.controlsManager.addHoverObject(sunMesh);
+        this.controlsManager.addClickObject(sunMesh);
         
         // Create Mercury
         this.planets.mercury = new Planet({
@@ -165,10 +173,10 @@ class SolarSystem {
                 texture: this.assetManager.getTexture('mercury')
             }
         });
-        this.planets.mercury.createMesh();
+        const mercuryMesh = this.planets.mercury.createMesh();
         this.orbitManager.addBody(this.planets.mercury);
-        this.controlsManager.addHoverObject(this.planets.mercury.mesh);
-        this.controlsManager.addClickObject(this.planets.mercury.mesh);
+        this.controlsManager.addHoverObject(mercuryMesh);
+        this.controlsManager.addClickObject(mercuryMesh);
         
         // Create Venus
         this.planets.venus = new Planet({
@@ -184,10 +192,10 @@ class SolarSystem {
                 texture: this.assetManager.getTexture('venus')
             }
         });
-        this.planets.venus.createMesh();
+        const venusMesh = this.planets.venus.createMesh();
         this.orbitManager.addBody(this.planets.venus);
-        this.controlsManager.addHoverObject(this.planets.venus.mesh);
-        this.controlsManager.addClickObject(this.planets.venus.mesh);
+        this.controlsManager.addHoverObject(venusMesh);
+        this.controlsManager.addClickObject(venusMesh);
         
         // Create Earth
         this.planets.earth = new Planet({
@@ -209,10 +217,10 @@ class SolarSystem {
                 nightMap: this.assetManager.getTexture('earthNight')
             }
         });
-        this.planets.earth.createMesh();
+        const earthMesh = this.planets.earth.createMesh();
         this.orbitManager.addBody(this.planets.earth);
-        this.controlsManager.addHoverObject(this.planets.earth.mesh);
-        this.controlsManager.addClickObject(this.planets.earth.mesh);
+        this.controlsManager.addHoverObject(earthMesh);
+        this.controlsManager.addClickObject(earthMesh);
         
         // Create Earth's Moon
         this.moons.moon = new Moon({
@@ -228,11 +236,11 @@ class SolarSystem {
                 texture: this.assetManager.getTexture('moon')
             }
         });
-        this.moons.moon.createMesh();
+        const moonMesh = this.moons.moon.createMesh();
         this.planets.earth.addMoon(this.moons.moon);
         this.orbitManager.addBody(this.moons.moon);
-        this.controlsManager.addHoverObject(this.moons.moon.mesh);
-        this.controlsManager.addClickObject(this.moons.moon.mesh);
+        this.controlsManager.addHoverObject(moonMesh);
+        this.controlsManager.addClickObject(moonMesh);
         
         // Create Mars
         this.planets.mars = new Planet({
@@ -248,10 +256,10 @@ class SolarSystem {
                 texture: this.assetManager.getTexture('mars')
             }
         });
-        this.planets.mars.createMesh();
+        const marsMesh = this.planets.mars.createMesh();
         this.orbitManager.addBody(this.planets.mars);
-        this.controlsManager.addHoverObject(this.planets.mars.mesh);
-        this.controlsManager.addClickObject(this.planets.mars.mesh);
+        this.controlsManager.addHoverObject(marsMesh);
+        this.controlsManager.addClickObject(marsMesh);
         
         // Create asteroid belt
         this.asteroidBelt = new AsteroidBelt({
@@ -277,10 +285,10 @@ class SolarSystem {
                 texture: this.assetManager.getTexture('jupiter')
             }
         });
-        this.planets.jupiter.createMesh();
+        const jupiterMesh = this.planets.jupiter.createMesh();
         this.orbitManager.addBody(this.planets.jupiter);
-        this.controlsManager.addHoverObject(this.planets.jupiter.mesh);
-        this.controlsManager.addClickObject(this.planets.jupiter.mesh);
+        this.controlsManager.addHoverObject(jupiterMesh);
+        this.controlsManager.addClickObject(jupiterMesh);
         
         // Create Jupiter's moons (Galilean moons)
         // Io
@@ -296,7 +304,7 @@ class SolarSystem {
                 texture: this.assetManager.getTexture('moon') // Substituting texture
             }
         });
-        this.moons.io.createMesh();
+        const ioMesh = this.moons.io.createMesh();
         this.planets.jupiter.addMoon(this.moons.io);
         this.orbitManager.addBody(this.moons.io);
         
@@ -314,7 +322,7 @@ class SolarSystem {
                 texture: this.assetManager.getTexture('moon') // Substituting texture
             }
         });
-        this.moons.europa.createMesh();
+        const europaMesh = this.moons.europa.createMesh();
         this.planets.jupiter.addMoon(this.moons.europa);
         this.orbitManager.addBody(this.moons.europa);
         
@@ -337,10 +345,10 @@ class SolarSystem {
                 ringsTexture: this.assetManager.getTexture('saturnRings')
             }
         });
-        this.planets.saturn.createMesh();
+        const saturnMesh = this.planets.saturn.createMesh();
         this.orbitManager.addBody(this.planets.saturn);
-        this.controlsManager.addHoverObject(this.planets.saturn.mesh);
-        this.controlsManager.addClickObject(this.planets.saturn.mesh);
+        this.controlsManager.addHoverObject(saturnMesh);
+        this.controlsManager.addClickObject(saturnMesh);
         
         // Create Uranus
         this.planets.uranus = new Planet({
@@ -357,10 +365,10 @@ class SolarSystem {
                 texture: this.assetManager.getTexture('uranus')
             }
         });
-        this.planets.uranus.createMesh();
+        const uranusMesh = this.planets.uranus.createMesh();
         this.orbitManager.addBody(this.planets.uranus);
-        this.controlsManager.addHoverObject(this.planets.uranus.mesh);
-        this.controlsManager.addClickObject(this.planets.uranus.mesh);
+        this.controlsManager.addHoverObject(uranusMesh);
+        this.controlsManager.addClickObject(uranusMesh);
         
         // Create Neptune
         this.planets.neptune = new Planet({
@@ -376,10 +384,18 @@ class SolarSystem {
                 texture: this.assetManager.getTexture('neptune')
             }
         });
-        this.planets.neptune.createMesh();
+        const neptuneMesh = this.planets.neptune.createMesh();
         this.orbitManager.addBody(this.planets.neptune);
-        this.controlsManager.addHoverObject(this.planets.neptune.mesh);
-        this.controlsManager.addClickObject(this.planets.neptune.mesh);
+        this.controlsManager.addHoverObject(neptuneMesh);
+        this.controlsManager.addClickObject(neptuneMesh);
+        
+        // After all bodies are created, ensure their userData references are set
+        setTimeout(() => {
+            // Update all planet names and references
+            if (window.languageManager) {
+                window.languageManager.updateCelestialBodyNames();
+            }
+        }, 100);
     }
     
     createSpecialEffects() {

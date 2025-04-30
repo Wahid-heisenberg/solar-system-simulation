@@ -9,6 +9,11 @@ class UIManager {
         
         // Initialize UI elements
         this.initializeUI();
+        
+        // Listen for language initialization
+        window.addEventListener('languageInitialized', () => {
+            this.updateUIForCurrentLanguage();
+        });
     }
     
     initializeUI() {
@@ -98,12 +103,23 @@ class UIManager {
         // Track the currently open planet in the language manager
         this.languageManager.setCurrentOpenPlanet(planetName);
         
+        // console.log(`Showing info panel for: ${planetName}`);
+        
         // Translate planet name
         const translatedName = this.languageManager.translatePlanetName(planetName);
         this.planetName.textContent = translatedName;
         
         // Get planet data in current language
         const data = this.getPlanetDataInCurrentLanguage(planetName);
+        
+        // console.log("Planet data:", data);
+        
+        if (!data) {
+            // console.error(`No data found for planet: ${planetName}`);
+            this.planetDetails.innerHTML = `<p>No data available for ${translatedName}</p>`;
+            this.infoPanel.classList.remove('hidden');
+            return;
+        }
         
         // Build HTML content for planet details
         let htmlContent = '';
@@ -112,6 +128,7 @@ class UIManager {
             htmlContent += `<p>${data.description}</p>`;
         }
         
+        // Add factual data with proper translations
         if (data.diameter) {
             htmlContent += `<p><strong>${this.languageManager.translate('planetDetails.diameter')}:</strong> ${data.diameter} km</p>`;
         }
@@ -162,8 +179,18 @@ class UIManager {
     }
     
     getPlanetDataInCurrentLanguage(planetName) {
+        if (!planetName) {
+            console.warn('No planet name provided to getPlanetDataInCurrentLanguage');
+            return null;
+        }
+        
         // Get base data
-        const baseData = this.planetData[planetName] || { description: 'No data available' };
+        const baseData = this.planetData[planetName];
+        
+        if (!baseData) {
+            console.warn(`No base data found for planet: ${planetName}`);
+            return null;
+        }
         
         // Try to get localized description if it exists
         const descriptions = this.planetDescriptions[this.languageManager.currentLanguage];
@@ -173,6 +200,16 @@ class UIManager {
             // Replace description with localized version
             localizedData.description = descriptions[planetName];
             return localizedData;
+        }
+        
+        // If no localized description in current language, try English fallback
+        if (this.languageManager.currentLanguage !== 'en') {
+            const englishDescriptions = this.planetDescriptions['en'];
+            if (englishDescriptions && englishDescriptions[planetName]) {
+                const localizedData = {...baseData};
+                localizedData.description = englishDescriptions[planetName];
+                return localizedData;
+            }
         }
         
         return baseData;
@@ -371,6 +408,16 @@ class UIManager {
         // Only refresh if the panel is actually visible
         if (!this.infoPanel.classList.contains('hidden')) {
             this.showInfoPanel(planetName);
+        }
+    }
+    
+    updateUIForCurrentLanguage() {
+        // Update any UI elements that need to reflect the current language
+        this.updateTimeScale(this.timeScale); // Update speed display with correct unit
+        
+        // If there's an open info panel, refresh it
+        if (this.languageManager.currentOpenPlanet && !this.infoPanel.classList.contains('hidden')) {
+            this.refreshInfoPanel(this.languageManager.currentOpenPlanet);
         }
     }
 }

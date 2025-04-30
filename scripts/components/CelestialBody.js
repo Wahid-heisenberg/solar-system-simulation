@@ -1,6 +1,7 @@
 class CelestialBody {
     constructor(params = {}) {
-        this.name = params.name || 'Unnamed Body';
+        this.originalName = params.name; // Store original name for data lookups
+        this.name = params.name;         // This will be translated
         this.radius = params.radius || 1;
         this.rotationSpeed = params.rotationSpeed || 0;
         this.rotationAxis = params.rotationAxis || new THREE.Vector3(0, 1, 0);
@@ -19,13 +20,28 @@ class CelestialBody {
         this.orbitLine = null;
         this.showOrbit = params.showOrbit !== undefined ? params.showOrbit : true;
 
-        this.labelMesh = null; // Will hold the text mesh for the label
-        this.createLabel();
+        // Remove permanent label creation
+        // this.labelMesh = null; // Will hold the text mesh for the label
+        // this.createLabel();
+
+        // Initialize translated name if language manager exists
+        if (window.languageManager) {
+            this.name = window.languageManager.translatePlanetName(this.originalName);
+        }
     }
     
     createMesh() {
         // To be implemented by subclasses
-        console.warn('createMesh() should be implemented by subclasses');
+        // console.warn('createMesh() should be implemented by subclasses');
+        
+        // Add these lines as a template for subclasses to follow
+        if (this.mesh) {
+            // Always set userData on mesh to reference this celestial body
+            this.mesh.userData = { celestialBody: this };
+            this.mesh.name = this.originalName;
+        }
+        
+        return this.mesh;
     }
     
     createOrbitLine() {
@@ -63,71 +79,16 @@ class CelestialBody {
         }
     }
     
+    // Comment out or remove the createLabel method
+    /*
     createLabel() {
-        // Create a canvas for the label
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-        canvas.width = 256;
-        canvas.height = 128;
-        
-        // Store the canvas context for later updates
-        this.labelCanvas = canvas;
-        this.labelContext = context;
-        
-        // Create texture from canvas
-        const texture = new THREE.CanvasTexture(canvas);
-        
-        // Create sprite material
-        const material = new THREE.SpriteMaterial({ 
-            map: texture,
-            transparent: true
-        });
-        
-        // Create sprite
-        this.labelMesh = new THREE.Sprite(material);
-        
-        // Scale the sprite
-        this.labelMesh.scale.set(2, 1, 1);
-        
-        // Position slightly above the body
-        const labelOffset = this.radius * 1.5;
-        this.labelMesh.position.set(0, labelOffset, 0);
-        
-        // Add to parent mesh if it exists
-        if (this.mesh) {
-            this.mesh.add(this.labelMesh);
-        }
-        
-        // Initial update with current name
-        this.updateLabel();
+        // This method is no longer needed as we're using tooltips instead
     }
     
     updateLabel(text) {
-        if (!this.labelContext) return;
-        
-        const displayText = text || (window.languageManager ? 
-            window.languageManager.translatePlanetName(this.name) : 
-            this.name);
-        
-        // Clear the canvas
-        this.labelContext.clearRect(0, 0, this.labelCanvas.width, this.labelCanvas.height);
-        
-        // Set text properties
-        this.labelContext.font = 'bold 40px Arial';
-        this.labelContext.textAlign = 'center';
-        this.labelContext.textBaseline = 'middle';
-        
-        // Draw text shadow
-        this.labelContext.fillStyle = 'rgba(0, 0, 0, 0.7)';
-        this.labelContext.fillText(displayText, 128 + 2, 64 + 2);
-        
-        // Draw text
-        this.labelContext.fillStyle = 'white';
-        this.labelContext.fillText(displayText, 128, 64);
-        
-        // Update the texture
-        this.labelMesh.material.map.needsUpdate = true;
+        // This method is no longer needed as we're using tooltips instead
     }
+    */
     
     update(timeScale = 1) {
         if (!this.mesh) return;
@@ -168,14 +129,43 @@ class CelestialBody {
     }
     
     onClick() {
-        // Show information about this celestial body
+        // Show information about this celestial body using original name for consistent lookup
         if (window.uiManager) {
-            window.uiManager.showInfoPanel(this.name);
+            window.uiManager.showInfoPanel(this.originalName);
+            console.log("Clicked on: " + this.originalName);
         }
         
         // Store reference to the selected body for language changes
         if (window.languageManager) {
-            window.languageManager.setCurrentOpenPlanet(this.name);
+            window.languageManager.setCurrentOpenPlanet(this.originalName);
+        }
+    }
+
+    // Add a method to update the translated name
+    updateLanguage() {
+        if (window.languageManager) {
+            // Update name with translated version
+            this.name = window.languageManager.translatePlanetName(this.originalName);
+            
+            // Make sure userData is updated on the mesh and any child objects
+            if (this.mesh) {
+                this.mesh.userData.celestialBody = this;
+                
+                // Update all child objects too
+                this.mesh.traverse(child => {
+                    if (child !== this.mesh) {
+                        child.userData = child.userData || {};
+                        child.userData.celestialBody = this;
+                    }
+                });
+            }
+            
+            // Remove label update since we don't use labels anymore
+            /*
+            if (this.labelMesh) {
+                this.updateLabel(this.name);
+            }
+            */
         }
     }
 }

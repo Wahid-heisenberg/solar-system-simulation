@@ -30,7 +30,10 @@ class Planet extends CelestialBody {
         const material = new THREE.MeshPhongMaterial(materialOptions);
         
         this.mesh = new THREE.Mesh(geometry, material);
-        this.mesh.name = this.name;
+        this.mesh.name = this.originalName; // Use originalName for consistency
+        
+        // IMPORTANT: Store reference to this celestial body for proper detection
+        this.mesh.userData = { celestialBody: this };
         
         // Create rings if applicable (e.g., Saturn)
         if (this.rings && this.data.ringsTexture) {
@@ -49,6 +52,8 @@ class Planet extends CelestialBody {
             
             this.ringsObject = new THREE.Mesh(ringGeometry, ringMaterial);
             this.ringsObject.rotation.x = Math.PI / 2;
+            // Also set userData on rings
+            this.ringsObject.userData = { celestialBody: this };
             this.mesh.add(this.ringsObject);
         }
         
@@ -64,6 +69,8 @@ class Planet extends CelestialBody {
             });
             
             this.nightMesh = new THREE.Mesh(nightGeometry, nightMaterial);
+            // Also set userData on night mesh
+            this.nightMesh.userData = { celestialBody: this };
             this.mesh.add(this.nightMesh);
         }
         
@@ -87,6 +94,12 @@ class Planet extends CelestialBody {
         
         // Create orbit line
         this.createOrbitLine();
+
+        
+        // Add label to mesh
+        if (this.labelMesh && this.mesh) {
+            this.mesh.add(this.labelMesh);
+        }
         
         return this.mesh;
     }
