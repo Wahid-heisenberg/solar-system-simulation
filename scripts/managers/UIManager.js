@@ -7,6 +7,9 @@ class UIManager {
         // Create language manager
         window.languageManager = this.languageManager = new LanguageManager();
         
+        // Create quiz manager
+        window.quizManager = this.quizManager = new QuizManager();
+        
         // Initialize UI elements
         this.initializeUI();
         
@@ -161,8 +164,24 @@ class UIManager {
             htmlContent += `<p><strong>${this.languageManager.translate('planetDetails.temperature')}:</strong> ${data.temperature}</p>`;
         }
         
+        // Add quiz button to planet details
+        htmlContent += `
+            <div class="quiz-button-container">
+                <button id="start-quiz-btn" class="quiz-btn">
+                    <i class="fas fa-question-circle"></i> ${this.languageManager.translate('quiz.startQuiz')}
+                </button>
+            </div>
+        `;
+        
         this.planetDetails.innerHTML = htmlContent;
         this.infoPanel.classList.remove('hidden');
+        
+        // Add event listener to the quiz button
+        document.getElementById('start-quiz-btn').addEventListener('click', () => {
+            if (window.quizManager) {
+                window.quizManager.startQuiz(planetName);
+            }
+        });
     }
     
     hideInfoPanel() {
@@ -361,7 +380,7 @@ class UIManager {
                 "Mars": "ⵎⴰⵔⵙ ⴷ ⵉⵜⵔⵉ ⵡⵉⵙⵙ ⴽⴽⵓⵥ ⵥⴳ ⵜⴰⴼⵓⴽⵜ ⴷ ⵡⵉⵙⵙ ⵙⵉⵏ ⴰⵎⵥⵥⵢⴰⵏ ⴳ ⵓⵙⵏⴳⵍⴰⵍ ⴰⵜⴰⴼⵓⴽⵜ. ⵉⵜⵜⵓⵙⵍⴰ ⵙ ⵢⵉⵙⵎ ⵉⵜⵔⵉ ⴰⵣⴳⴳⵯⴰⵖ ⵎⵉⵏⵥⵉ ⵉⵥⵉⵍ ⵣⴳⴳⵯⴰⵖⵏ.",
                 "Jupiter": "ⵊⵓⵒⵉⵜⵉⵔ ⴷ ⵉⵜⵔⵉ ⵡⵉⵙⵙ ⵙⵎⵎⵓⵙ ⵥⴳ ⵜⴰⴼⵓⴽⵜ ⴷ ⴰⵎⵇⵇⵔⴰⵏ ⴳ ⵓⵙⵏⴳⵍⴰⵍ ⴰⵜⴰⴼⵓⴽⵜ. ⴷ ⴰⵡⴷⵉⵢ ⵏ ⵜⴳⵓⵜ ⵙ ⵢⴰⵏ ⵜⴰⴽⵜⵉⵡⵜ ⵓⴳⴰⵔ ⵏ ⵙⵉⵏ ⵜⴰⴽⵜⵉⵡⵜ ⵏ ⵉⵜⵔⴰⵏ ⴰⴽⴽ ⵉⵙⵎⵓⵏⵏ.",
                 "Saturn": "ⵙⴰⵜⵓⵔⵏ ⴷ ⵉⵜⵔⵉ ⵡⵉⵙⵙ ⵚⴹⵉⵚ ⵥⴳ ⵜⴰⴼⵓⴽⵜ ⴷ ⵡⵉⵙⵙ ⵙⵉⵏ ⴰⵎⵇⵇⵔⴰⵏ ⴳ ⵓⵙⵏⴳⵍⴰⵍ ⴰⵜⴰⴼⵓⴽⵜ. ⴷ ⴰⵡⴷⵉⵢ ⵏ ⵜⴳⵓⵜ ⵙ ⵜⴰⵣⵍⴰⵢⵜ ⵏ ⵜⵉⵣⵉ ⵓⴳⴰⵔ ⵏ ⵜⵣⴰ ⵜⵡⴰⵍⴰⵜⵉⵏ ⵏ ⵓⵎⴰⴹⴰⵍ, ⵉⵜⵜⵡⴰⵙⵙⵏ ⵙ ⵓⵖⴰⵡⴰⵙ ⵏ ⵜⵔⴰⵡⵉⵏ.",
-                "Uranus": "ⵓⵔⴰⵏⵓⵙ ⴷ ⵉⵜⵔⵉ ⵡⵉⵙⵙ ⵙⴰ ⵥⴳ ⵜⴰⴼⵓⴽⵜ. ⴷⴰⵢⵙ ⵜⴰⵣⵍⴰⵢⵜ ⵜⵉⵙⵙ ⴽⵔⴰⴹⵜ ⵜⴰⵎⵇⵇⵔⴰⵏⵜ ⴷ ⵜⴰⴽⵜⵉⵡⵜ ⵜⵉⵙⵙ ⴽⴽⵓⵥⵜ ⵜⴰⵎⵇⵇⵔⴰⵏⵜ ⴳ ⵓⵙⵏⴳⵍⴰⵍ ⴰⵜⴰⴼⵓⴽⵜ ⴷ ⵉⵏⵏⵓⵕⵥⵎ ⵖⵔ ⵜⴰⵎⴰ ⵙ ⵓⵙⵓⵔⴼ ⵏ 98 ⵜⵡⴰⵍⴰⵜⵉⵏ.",
+                "Uranus": "ⵓⵔⴰⵏⵓⵙ ⴷ ⵉⵜⵔⵉ ⵡⵉⵙⵙ ⴰ ⵥⴳ ⵜⴰⴼⵓⴽⵜ. ⴷⴰⵢⵙ ⵜⴰⵣⵍⴰⵢⵜ ⵜⵉⵙⵙ ⴽⵔⴰⴹⵜ ⵜⴰⵎⵇⵇⵔⴰⵏⵜ ⴷ ⵜⴰⴽⵜⵉⵡⵜ ⵜⵉⵙⵙ ⴽⴽⵓⵥⵜ ⵜⴰⵎⵇⵇⵔⴰⵏⵜ ⴳ ⵓⵙⵏⴳⵍⴰⵍ ⴰⵜⴰⴼⵓⴽⵜ ⴷ ⵉⵏⵏⵓⵕⵥⵎ ⵖⵔ ⵜⴰⵎⴰ ⵙ ⵓⵙⵓⵔⴼ ⵏ 98 ⵜⵡⴰⵍⴰⵜⵉⵏ.",
                 "Neptune": "ⵏⵉⵒⵜⵓⵏ ⴷ ⵉⵜⵔⵉ ⵡⵉⵙⵙ ⵜⴰⵎ ⴷ ⴰⴳⴳⵓⴳⵏ ⵥⴳ ⵜⴰⴼⵓⴽⵜ. ⴷ ⵉⵜⵔⵉ ⵡⵉⵙⵙ ⴽⴽⵓⵥ ⴰⵎⵇⵇⵔⴰⵏ ⵙ ⵜⴰⵣⵍⴰⵢⵜ ⴷ ⵡⵉⵙⵙ ⴽⵔⴰⴹ ⴰⵎⵇⵇⵔⴰⵏ ⵙ ⵜⴰⴽⵜⵉⵡⵜ. ⵏⵉⵒⵜⵓⵏ ⵉⵜⵜⵎⵛⴰⴱⴰⵀ ⴷ ⵓⵔⴰⵏⵓⵙ ⴳ ⵓⵙⵎⵓⵏ, ⴷ ⵙⵉⵏ ⵉⴷⵙⵏ ⴷⴰⵔⵙⵏ ⵉⵙⵎⵓⵏⵏ ⵉⵅⵜⴰⵍⴼⵏ ⵅⴼ ⵓⵊⵓⵒⵉⵜⵏ ⴷ ⵙⴰⵜⵓⵔⵏ."
             },
             tzm_lat: {
@@ -418,6 +437,11 @@ class UIManager {
         // If there's an open info panel, refresh it
         if (this.languageManager.currentOpenPlanet && !this.infoPanel.classList.contains('hidden')) {
             this.refreshInfoPanel(this.languageManager.currentOpenPlanet);
+        }
+        
+        // Update quiz UI
+        if (window.quizManager) {
+            window.quizManager.updateLanguage();
         }
     }
 }

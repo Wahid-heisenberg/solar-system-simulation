@@ -23,6 +23,22 @@ class LanguageManager {
                     moons: 'Moons',
                     atmosphere: 'Atmosphere',
                     temperature: 'Average Temperature'
+                },
+                quiz: {
+                    startQuiz: "Start Quiz",
+                    questionTitle: "Quiz about",
+                    timeRemaining: "Time Remaining",
+                    correct: "Correct!",
+                    incorrect: "Incorrect!",
+                    next: "Next",
+                    cancel: "Cancel Quiz",
+                    restart: "Try Again",
+                    close: "Close",
+                    resultsTitle: "Quiz Results",
+                    excellentResult: "Excellent! You're an expert on this planet!",
+                    goodResult: "Good job! You know quite a bit about this planet.",
+                    averageResult: "Not bad! You've learned some facts about this planet.",
+                    poorResult: "Keep learning! Visit again to improve your score."
                 }
             },
             fr: {
@@ -44,6 +60,22 @@ class LanguageManager {
                     moons: 'Lunes',
                     atmosphere: 'Atmosphère',
                     temperature: 'Température Moyenne'
+                },
+                quiz: {
+                    startQuiz: "Commencer le Quiz",
+                    questionTitle: "Quiz sur",
+                    timeRemaining: "Temps Restant",
+                    correct: "Correct !",
+                    incorrect: "Incorrect !",
+                    next: "Suivant",
+                    cancel: "Annuler le Quiz",
+                    restart: "Réessayer",
+                    close: "Fermer",
+                    resultsTitle: "Résultats du Quiz",
+                    excellentResult: "Excellent ! Vous êtes un expert sur cette planète !",
+                    goodResult: "Bon travail ! Vous connaissez bien cette planète.",
+                    averageResult: "Pas mal ! Vous avez appris quelques faits sur cette planète.",
+                    poorResult: "Continuez à apprendre ! Revenez pour améliorer votre score."
                 }
             },
             ar: {
@@ -65,6 +97,22 @@ class LanguageManager {
                     moons: 'الأقمار',
                     atmosphere: 'الغلاف الجوي',
                     temperature: 'متوسط درجة الحرارة'
+                },
+                quiz: {
+                    startQuiz: "ابدأ الاختبار",
+                    questionTitle: "اختبار حول",
+                    timeRemaining: "الوقت المتبقي",
+                    correct: "صحيح!",
+                    incorrect: "غير صحيح!",
+                    next: "التالي",
+                    cancel: "إلغاء الاختبار",
+                    restart: "حاول مرة أخرى",
+                    close: "إغلاق",
+                    resultsTitle: "نتائج الاختبار",
+                    excellentResult: "ممتاز! أنت خبير في هذا الكوكب!",
+                    goodResult: "عمل جيد! أنت تعرف الكثير عن هذا الكوكب.",
+                    averageResult: "ليس سيئًا! لقد تعلمت بعض الحقائق عن هذا الكوكب.",
+                    poorResult: "استمر في التعلم! عد مرة أخرى لتحسين درجاتك."
                 }
             },
             tzm: {
@@ -86,6 +134,22 @@ class LanguageManager {
                     moons: 'ⴰⵢⵓⵔⵏ',
                     atmosphere: 'ⴰⵀⵡⴰ',
                     temperature: 'ⴰⵣⵣⵓⵎ ⵏ ⵜⴽⵓⵙⵜ'
+                },
+                quiz: {
+                    startQuiz: "ⴱⴷⵓ ⴰⵍⵎⵓⴷ",
+                    questionTitle: "ⴰⵍⵎⵓⴷ ⵖⴼ",
+                    timeRemaining: "ⴰⴽⵓⴷ ⵉⵇⵇⵉⵎⵏ",
+                    correct: "ⵉⵙⵃⴰ!",
+                    incorrect: "ⵓⵔ ⵉⵙⵃⵉ!",
+                    next: "ⵡⵉⵏ ⴷ ⵉⴹⴼⵕⵏ",
+                    cancel: "ⵙⴱⴷⴷ ⴰⵍⵎⵓⴷ",
+                    restart: "ⴰⵔⵎ ⴷⴰⵖ",
+                    close: "ⵔⴳⵍ",
+                    resultsTitle: "ⵜⵉⵄⵇⵇⴰⵢⵉⵏ ⵏ ⵓⵍⵎⵓⴷ",
+                    excellentResult: "ⵉⵖⵓⴷⴰ! ⵜⴳⵉⴷ ⴰⵎⵙⵙⵉⵡⵍ ⵖⴼ ⵢⵉⵜⵔⵉ ⴰⴷ!",
+                    goodResult: "ⵜⴰⵡⵓⵔⵉ ⵜⴰⴼⵓⵍⴽⵉⵜ! ⵜⵙⵙⵏⴷ ⴰⵢⵍⵍⵉ ⵖⴼ ⵢⵉⵜⵔⵉ ⴰⴷ.",
+                    averageResult: "ⵓⵔ ⵢⵓⵅⵙ! ⵜⴻⵍⵎⴷⴷ ⴽⵔⴰ ⵏ ⵜⵎⵙⵍⴰⵢⵉⵏ ⵖⴼ ⵢⵉⵜⵔⵉ ⴰⴷ.",
+                    poorResult: "ⵍⵎⴷ ⵓⴳⴳⴰⵔ! ⴷⵡⵍ ⴷⴰⵖ ⵢⴰⴽ ⴰⴷ ⵜⵙⵏⵏⴼⵍⵓⵍⴷ ⵜⵉⵣⵎⵎⴰⵔ ⵏⵏⴽ."
                 }
             },
             tzm_lat: {
@@ -107,6 +171,22 @@ class LanguageManager {
                     moons: 'Ayurn',
                     atmosphere: 'Ahwa',
                     temperature: 'Azzum n tkust'
+                },
+                quiz: {
+                    startQuiz: "Bdu Almud",
+                    questionTitle: "Almud ɣef",
+                    timeRemaining: "Akud iqqimn",
+                    correct: "Isḥa!",
+                    incorrect: "Ur isḥi!",
+                    next: "Win d iḍfṛn",
+                    cancel: "Sbedd almud",
+                    restart: "Arm daɣ",
+                    close: "Rgl",
+                    resultsTitle: "Tiɛqqayin n ulmud",
+                    excellentResult: "Iɣuda! Tgid amssiw ɣef yitri ad!",
+                    goodResult: "Tawuri tafulkit! Tssnd aylli ɣef yitri ad.",
+                    averageResult: "Ur yuxs! Telmddd kra n tmslayin ɣef yitri ad.",
+                    poorResult: "Lmd uggar! Dwl daɣ yak ad tsnnfluld tizmmar nnk."
                 }
             }
         };
