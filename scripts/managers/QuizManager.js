@@ -103,6 +103,7 @@ class QuizManager {
         this.resultsContainer.querySelector('#restart-quiz-btn').addEventListener('click', () => {
             this.resultsContainer.classList.add('hidden');
             this.questionContainer.classList.remove('hidden');
+            this.quizControls.classList.remove('hidden'); // Make sure to show controls again
             this.startQuiz(this.currentPlanet);
         });
         
@@ -330,7 +331,7 @@ class QuizManager {
         // Hide questions and show results
         this.questionContainer.classList.add('hidden');
         this.resultsContainer.classList.remove('hidden');
-        this.quizControls.classList.add('hidden');
+        this.quizControls.classList.add('hidden'); // This line hides the controls but doesn't restore them later
         
         // Update results
         const maxScore = this.questions.length * 10;
@@ -360,6 +361,7 @@ class QuizManager {
         clearInterval(this.timerInterval);
         this.isQuizActive = false;
         this.quizModal.classList.add('hidden');
+        // Make sure controls are visible for next time
         this.quizControls.classList.remove('hidden');
     }
     
