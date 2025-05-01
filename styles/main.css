@@ -336,7 +336,7 @@ html[dir="rtl"] #credits {
         transform: none; /* Remove the centering transform */
         padding: 6px 12px;
         font-size: 12px;
-        max-width: 160px; /* Limit width on small screens */
+        max-width: 320px; /* Limit width on small screens */
         text-align: left;
     }
     
