@@ -286,4 +286,108 @@ class UIManager {
             window.quizManager.updateLanguage();
         }
     }
+    
+    createControlPanel() {
+        const controlPanel = document.createElement('div');
+        controlPanel.id = 'control-panel';
+        
+        // Create pause/resume button
+        const pauseBtn = document.createElement('button');
+        pauseBtn.id = 'pause-btn';
+        pauseBtn.className = 'control-button';
+        pauseBtn.innerHTML = this.isPaused ? 
+            (window.languageManager ? window.languageManager.translate('resumeBtn') : 'Resume') : 
+            (window.languageManager ? window.languageManager.translate('pauseBtn') : 'Pause');
+        pauseBtn.addEventListener('click', () => this.togglePause());
+        controlPanel.appendChild(pauseBtn);
+        this.pauseBtn = pauseBtn;
+        
+        // Create real-time mode button with clock icon
+        const realTimeBtn = document.createElement('button');
+        realTimeBtn.id = 'real-time-btn';
+        realTimeBtn.className = 'control-button';
+        realTimeBtn.innerHTML = '<i class="fas fa-clock"></i>';
+        realTimeBtn.title = window.languageManager ? 
+            window.languageManager.translate('realTimeBtn') : 'Current Positions';
+        
+        realTimeBtn.addEventListener('click', () => {
+            this.toggleRealTimeMode();
+        });
+        
+        controlPanel.appendChild(realTimeBtn);
+        this.realTimeBtn = realTimeBtn;
+        
+        // Create view buttons (top view, reset view)
+        const topViewBtn = document.createElement('button');
+        topViewBtn.id = 'top-view-btn';
+        topViewBtn.className = 'control-button';
+        topViewBtn.innerHTML = window.languageManager ? window.languageManager.translate('topViewBtn') : 'Top View';
+        topViewBtn.addEventListener('click', () => {
+            if (window.solarSystem && window.solarSystem.controlsManager) {
+                window.solarSystem.controlsManager.setTopView();
+            }
+        });
+        controlPanel.appendChild(topViewBtn);
+        
+        const resetViewBtn = document.createElement('button');
+        resetViewBtn.id = 'reset-view-btn';
+        resetViewBtn.className = 'control-button';
+        resetViewBtn.innerHTML = window.languageManager ? window.languageManager.translate('resetViewBtn') : 'Reset View';
+        resetViewBtn.addEventListener('click', () => {
+            if (window.solarSystem && window.solarSystem.controlsManager) {
+                window.solarSystem.controlsManager.resetView();
+            }
+        });
+        controlPanel.appendChild(resetViewBtn);
+        
+        document.body.appendChild(controlPanel);
+        
+        // Create slider for time control
+        // ...existing code...
+    }
+    
+    toggleRealTimeMode() {
+        if (!window.solarSystem) return;
+        
+        if (!window.solarSystem.realTimeMode) {
+            // Switch to real-time mode
+            window.solarSystem.enableRealTimeMode();
+            
+            // Update button appearance
+            this.realTimeBtn.classList.add('active');
+            this.realTimeBtn.title = window.languageManager ? 
+                window.languageManager.translate('simulationBtn') : 'Return to Simulation';
+            
+            // Disable the pause button during real-time mode
+            if (this.pauseBtn) {
+                this.pauseBtn.disabled = true;
+            }
+            
+            // Disable timeline slider during real-time mode
+            if (this.timeSlider) {
+                this.timeSlider.disabled = true;
+            }
+        } else {
+            // Switch back to simulation mode
+            window.solarSystem.disableRealTimeMode();
+            
+            // Update button appearance
+            this.realTimeBtn.classList.remove('active');
+            this.realTimeBtn.title = window.languageManager ? 
+                window.languageManager.translate('realTimeBtn') : 'Current Positions';
+            
+            // Re-enable the pause button
+            if (this.pauseBtn) {
+                this.pauseBtn.disabled = false;
+            }
+            
+            // Re-enable timeline slider
+            if (this.timeSlider) {
+                this.timeSlider.disabled = false;
+            }
+            
+            // Unpause simulation
+            this.resumeSimulation();
+        }
+    }
 }

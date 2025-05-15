@@ -16,6 +16,7 @@ A realistic, interactive 3D simulation of our Solar System built with HTML, CSS,
 - Time controls to speed up, slow down, or pause the simulation
 - Mini-map showing the system from top-down view
 - Information panels for each celestial body
+- Quiz for each planet
 - multi-language support 
 
 ## Getting Started
